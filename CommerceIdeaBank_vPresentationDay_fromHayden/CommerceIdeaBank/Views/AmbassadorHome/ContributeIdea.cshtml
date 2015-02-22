@@ -1,0 +1,78 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Ambassador.AmbassProjectViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Contribute Idea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.AMBASSADOR)
+    {
+
+        string username = (string)HttpContext.Current.Session["currentUser"];
+
+        using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Failed to Create project. Check all fields.");
+            <div>
+                <fieldset>
+                    <legend>Contribute new idea.</legend>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.ProjectName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.ProjectName, new { @class = "project_name_text" })
+                        @Html.ValidationMessageFor(x => x.ProjectName)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.ProjectDesc)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(x => x.ProjectDesc, new { @class = "project_desc_just_text" })
+                        @Html.ValidationMessageFor(x => x.ProjectDesc)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.BusinessJustification)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(x => x.BusinessJustification, new { @class = "project_desc_just_text" })
+                        @Html.ValidationMessageFor(x => x.BusinessJustification)
+                    </div>
+
+                    @Html.HiddenFor(x => x.Username, new { @Value = @username })
+                    @Html.HiddenFor(x => x.IsArchived, new { @Value = false })
+                    @Html.HiddenFor(x => x.Status, new { @Value = IdeaStatus.SUBMITTED })
+                    @Html.HiddenFor(x => x.PostDate, new { @Value = DateTime.Now })
+
+                    <div>
+                        <input type="submit" value="Contribute" class="submit_button button" />
+                    </div>
+
+                </fieldset>
+            </div>
+        }
+
+    }
+    else if (role == UserRole.ADMIN)
+    {
+        //Redirect erroneous admin to correct page
+        Response.Redirect(Url.Action(ActionName.AN_CONTRIBUTE_IDEA, PermissionSpace.PS_ADMIN_HOME));
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_AMBASSADOR_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

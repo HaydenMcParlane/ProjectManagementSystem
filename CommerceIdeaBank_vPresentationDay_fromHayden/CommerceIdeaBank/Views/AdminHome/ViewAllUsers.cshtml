@@ -1,0 +1,240 @@
+﻿@model PagedList.IPagedList<CommerceIdeaBank.Models.ViewModels.Admin.AdminUserViewModel>
+@using CommerceIdeaBank.GlobalConstants;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "All Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h1 class="header">View All Users</h1>
+
+        <body>
+            <div>
+                <table class="contribution_table">
+                    <tr>
+                        <th>        
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("Username", ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.PROJECT_USERNAME,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: Username
+                            }                            
+                        </th>
+                        <th> 
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("User Email", ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.EMAIL,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: User Email
+                            }
+                        </th>
+                        <th>  
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("User Role", ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.USER_ROLE,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: User Role
+                            }
+                        </th>
+                        <th>   
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("User Status", ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.USER_STATUS,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: User Status
+                            }
+                        </th>
+                    </tr>
+
+                    @if (Model != null && Model.ToList().Count != 0)
+                    {
+                        foreach (var user_entity in Model)
+                        {
+                            if (user_entity == null)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => user_entity.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => user_entity.Email)
+                                    </td>
+                                    <td>
+                                        @if (user_entity.UserRole == UserRole.CONTRIBUTOR)
+                                        {
+                                            <span>Contributor</span>
+                                        }
+                                        else if (user_entity.UserRole == UserRole.AMBASSADOR)
+                                        {
+                                            <span>Ambassador</span>
+                                        }
+                                        else if (user_entity.UserRole == UserRole.ADMIN)
+                                        {
+                                            <span>Administrator</span>
+                                        }
+                                        else
+                                        {
+                                            //Don't display anything in table cell
+                                        }
+
+                                        @using (Html.BeginForm())
+                                        {
+                                            List<SelectListItem> role_list = new List<SelectListItem>();
+
+                                            //Read in global constant statuses
+                                            var global_user_role_list = UserRole.GetRoleList();
+
+                                            //Create role list
+                                            role_list.Add(new SelectListItem() { Value = UserRole.CONTRIBUTOR.ToString(), Text = UserRole.ROLE_TITLE_CONTRIBUTOR });
+                                            role_list.Add(new SelectListItem() { Value = UserRole.AMBASSADOR.ToString(), Text = UserRole.ROLE_TITLE_AMBASSADOR });
+                                            role_list.Add(new SelectListItem() { Value = UserRole.ADMIN.ToString(), Text = UserRole.ROLE_TITLE_ADMIN });
+
+                                            @Html.DropDownList("new_user_role", role_list)
+
+                                            //Submit additional values upon button click
+                                            @Html.Hidden("selected_username", user_entity.Username)
+
+                                            <input type="submit" value="Update Role" formaction="AdminViewAllUsers" formmethod="post" />
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (user_entity.IsActive == true)
+                                        {
+                                            <span>Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Retired</span>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else if (Model == null)
+                    {
+                        //No ideas have been submitted yet
+                        <tr>
+                            <td> There are no users yet. </td>
+                        </tr>
+                    }
+                    else if (Model.ToList().Count == 0)
+                    {
+                        //No ideas have been submitted yet
+                        <tr>
+                            <td> There are no users yet. </td>
+                        </tr>
+                    }                    
+
+                </table>
+
+                @if (ViewBag.CurrentSortCategory == ViewBag.PreviousSortCategory)
+                {
+                    ViewBag.temp = ViewBag.CurrentSortCategory;
+
+                    //Toggle sort order
+                    if (ViewBag.CurrentSortOrder == SortKey.ASCEND)
+                    {
+                        ViewBag.tempSortOrder = SortKey.DESCEND;
+                    }
+                    else
+                    {
+                        ViewBag.tempSortOrder = SortKey.ASCEND;
+                    }
+                }
+                else
+                {
+                    ViewBag.temp = ViewBag.PreviousSortCategory;
+                }
+
+                @if (Model != null)
+                {
+                    <br />
+                    @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action(ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME,
+                        new
+                        {
+                            page,
+                            sort_order = @ViewBag.tempSortOrder,
+                            prev_sort_category = @ViewBag.temp,
+                            cur_sort_category = @ViewBag.CurrentSortCategory,
+                            sort_flag = true
+                        }, null),
+                        new PagedListRenderOptions { DisplayLinkToIndividualPages = true })
+                }                
+
+            </div>
+        </body>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_ADMIN_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}
+
+
+
+
+    

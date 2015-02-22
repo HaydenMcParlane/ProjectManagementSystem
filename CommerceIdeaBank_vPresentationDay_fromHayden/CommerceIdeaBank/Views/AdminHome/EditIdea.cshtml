@@ -1,0 +1,74 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Admin.AdminProjectViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Edit Idea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h2 class="header">Edit Idea</h2>
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div>
+            <hr />
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ProjectID)
+            @Html.HiddenFor(model => model.Username)
+            @Html.HiddenFor(model => model.PostDate)
+            @Html.HiddenFor(model => model.IsArchived)
+            @Html.HiddenFor(model => model.Status)
+
+            <table class="edit_table">
+                <tr>
+                    <td class="edit_header">Project Name: </td>
+                    <td class="edit_area">
+                        @Html.TextBoxFor(model => model.ProjectName, new { @class = "project_name_text" })
+                        @Html.ValidationMessageFor(model => model.ProjectName)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="edit_header">Project Description: </td>
+                    <td class="edit_area">
+                        @Html.TextAreaFor(model => model.ProjectDesc, new { @class = "project_desc_just_text" })
+                        @Html.ValidationMessageFor(model => model.ProjectDesc)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="edit_header">Business Justification: </td>
+                    <td class="edit_area">
+                        @Html.TextAreaFor(model => model.BusinessJustification, new { @class = "project_desc_just_text" })
+                        @Html.ValidationMessageFor(model => model.BusinessJustification)
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+                <input type="submit" value="Save" class="button" />
+                <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_ADMIN_HOME)'" />
+            </div>
+        </div>
+        }
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

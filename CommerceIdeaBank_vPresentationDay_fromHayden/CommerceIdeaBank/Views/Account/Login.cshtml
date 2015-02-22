@@ -1,0 +1,33 @@
+﻿@model CommerceIdeaBank.Models.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+    <div>
+        <fieldset>
+            <legend>Login</legend>
+            <div class="editor-label">
+                @Html.LabelFor(x => x.Username)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(x => x.Username, new { @class = "input_textbox" })
+                @Html.ValidationMessageFor(x => x.Username)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(x => x.Password)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(x => x.Password, new { @class = "input_textbox" })
+                @Html.ValidationMessageFor(x => x.Password)
+            </div>
+
+            <input type="submit" value="Log In" class="submit_button button" />
+        </fieldset>
+    </div>
+}

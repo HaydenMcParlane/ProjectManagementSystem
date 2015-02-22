@@ -1,0 +1,222 @@
+﻿@model PagedList.IPagedList<CommerceIdeaBank.Models.ViewModels.Admin.AdminSchoolViewModel>
+@using CommerceIdeaBank.GlobalConstants;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "All Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h2>View all schools.</h2>
+
+        <body>
+            <div>
+                <table class="contribution_table">
+                    <tr>
+                        <th>        
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("School Name", ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.SCHOOL_NAME,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: School Name
+                            }
+                        </th>
+                        <th>
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("Username", ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.PROJECT_USERNAME,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: Username
+                            }
+                        </th>
+                        <th>
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("Email", ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.EMAIL,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: Email
+                            }
+                        </th>
+                        <th>   
+                            @if (Model != null)
+                            {
+                                @Html.ActionLink("Phone Number", ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME,
+                                new
+                                {
+                                    sort_order = @ViewBag.CurrentSortOrder,
+                                    prev_sort_category = @ViewBag.CurrentSortCategory,
+                                    cur_sort_category = SortKey.SCHOOL_PHONE,
+                                    page = Model.PageNumber,
+                                    sort_flag = true
+                                }, null)
+                            }
+                            else
+                            {
+                                @: Phone Number
+                            }                           
+                        </th>
+                    </tr>
+
+                    @if (Model != null && Model.ToList().Count != 0)
+                    {
+                        foreach (var school in Model)
+                        {
+                            if (school == null)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink(school.SchoolName, ActionName.AN_VIEW_SCHOOL,
+                                    new { id = school.SchoolID }, null)
+                                    </td>
+
+                                    <td>
+
+                                        @if (school.Username == null || school.Username == "")
+                                        {
+                                            <p>None Assigned</p>
+
+                                            using (@Html.BeginForm())
+                                            {
+                                                @Html.Hidden("selected_school_id", school.SchoolID)
+
+                                                <input type="submit" value="Add Ambassador" formaction="SelectAmbassador" formmethod="post" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // *** Remove ambassador option
+                                            @Html.DisplayFor(modelItem => school.Username)
+
+                                            using (@Html.BeginForm())
+                                            {
+                                                @Html.Hidden("selected_school_id", school.SchoolID)
+
+                                                <input type="submit" value="Remove Ambassador" class="submit_button" formaction="AdminRemoveAmbassador" formmethod="post" />
+                                            }
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => school.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => school.Phone)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else if (Model == null)
+                    {
+                        //No ideas have been submitted yet
+                        <tr>
+                            <td> There are no schools yet. </td>
+                        </tr>
+                    }
+                    else if (Model.ToList().Count == 0)
+                    {
+                        //No ideas have been submitted yet
+                        <tr>
+                            <td> There are no schools yet. </td>
+                        </tr>
+                    }
+
+                </table>
+
+                @if (ViewBag.CurrentSortCategory == ViewBag.PreviousSortCategory)
+                {
+                    ViewBag.temp = ViewBag.CurrentSortCategory;
+
+                    //Toggle sort order
+                    if (ViewBag.CurrentSortOrder == SortKey.ASCEND)
+                    {
+                        ViewBag.tempSortOrder = SortKey.DESCEND;
+                    }
+                    else
+                    {
+                        ViewBag.tempSortOrder = SortKey.ASCEND;
+                    }
+                }
+                else
+                {
+                    ViewBag.temp = ViewBag.PreviousSortCategory;
+                }
+
+                @if (Model != null)
+                {
+                    <br />
+                    @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action(ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME,
+                        new
+                        {
+                            page,
+                            sort_order = @ViewBag.tempSortOrder,
+                            prev_sort_category = @ViewBag.temp,
+                            cur_sort_category = @ViewBag.CurrentSortCategory,
+                            sort_flag = true
+                        }, null),
+                        new PagedListRenderOptions { DisplayLinkToIndividualPages = true })
+                }
+                                
+            </div>
+        </body>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_ADMIN_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}
+
+
+
+

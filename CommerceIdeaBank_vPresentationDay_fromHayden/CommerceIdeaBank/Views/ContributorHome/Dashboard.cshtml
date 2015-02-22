@@ -1,0 +1,50 @@
+﻿<!-- Include necessary view model here *** -->
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.CONTRIBUTOR)
+    {
+
+        <h2 class="header">General</h2>
+
+        <div>
+            <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_CONTRIBUTOR_HOME)'" />            
+        </div>
+        <hr />
+
+        <h2 class="header">@Html.Encode(User.Identity.Name)</h2>
+
+        <div>
+            <input type="button" class="button" value="My Ideas" onclick="location.href='@Url.Action(ActionName.AN_MY_CONTRIBUTION, PermissionSpace.PS_CONTRIBUTOR_HOME)'" />
+        </div>
+        <hr />
+    }
+    else if (role == UserRole.AMBASSADOR)
+    {
+        //Redirect erroneous ambassador to correct page
+        Response.Redirect(Url.Action(ActionName.AN_DASHBOARD, PermissionSpace.PS_AMBASSADOR_HOME));
+    }
+    else if (role == UserRole.ADMIN)
+    {
+        //Redirect erroneous admin to correct page
+        Response.Redirect(Url.Action(ActionName.AN_DASHBOARD, PermissionSpace.PS_ADMIN_HOME));
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_CONTRIBUTOR_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

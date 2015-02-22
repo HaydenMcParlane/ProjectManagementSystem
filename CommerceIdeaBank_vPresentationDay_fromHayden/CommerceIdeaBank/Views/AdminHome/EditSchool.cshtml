@@ -1,0 +1,136 @@
+﻿
+@model CommerceIdeaBank.Models.ViewModels.Admin.AdminSchoolViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Edit School";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h1 class="header">Edit school</h1>
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <h2>School details:</h2>
+                <hr />
+
+                @*
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ProjectID)
+                @Html.HiddenFor(model => model.Username)
+                @Html.HiddenFor(model => model.PostDate)
+                @Html.HiddenFor(model => model.IsArchived)
+                @Html.HiddenFor(model => model.Status)
+                *@
+
+                @Html.HiddenFor(model => model.SchoolID)
+
+                <div>
+                    @Html.LabelFor(model => model.SchoolName, new { @class = "edit_header"})
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.SchoolName, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.SchoolName)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Phone, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.StreetNumber, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.StreetNumber, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.StreetNumber)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.StreetName, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.StreetName, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.StreetName)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.City, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.City, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.City)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.State, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.State, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.State)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.ZipCode, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.ZipCode, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.ZipCode)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Email, new { @class = "edit_header" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "project_name_text" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Username, new { @class = "edit_header" })
+                </div>
+                @if (Model.Username != null)
+                {
+                    <div>
+                        <h3>@Html.DisplayFor(model => model.Username)</h3>
+                    </div>
+                }
+                else
+                {
+                    <h3 class="edit_header">No Ambassador Assigned</h3>
+                }
+
+                    <div>
+                        <input type="submit" value="Save" class="button" />
+                    </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+
+}
+
+

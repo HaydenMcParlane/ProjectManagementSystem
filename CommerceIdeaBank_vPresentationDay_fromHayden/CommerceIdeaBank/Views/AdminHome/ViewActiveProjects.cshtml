@@ -1,0 +1,242 @@
+﻿@model PagedList.IPagedList<CommerceIdeaBank.Models.ViewModels.Admin.AdminActiveProjectViewModel>
+@using CommerceIdeaBank.GlobalConstants
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Active Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <div>
+            <h1 class="header"> Projects in the Works </h1>
+
+            <table class="contribution_table">
+                <tr>
+                    <th>                  
+                        @if (Model != null)
+                        {
+                            @Html.ActionLink("Project Name", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                            new
+                            {
+                                sort_order = @ViewBag.CurrentSortOrder,
+                                prev_sort_category = @ViewBag.CurrentSortCategory,
+                                cur_sort_category = SortKey.PROJECT_NAME,
+                                page = Model.PageNumber,
+                                sort_flag = true
+                            }, null)
+                        }
+                        else
+                        {
+                            @: Project Name
+                        }                     
+                    </th>
+                    <th>
+                        @if (Model != null)
+                        {
+                            @Html.ActionLink("School Name", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                            new
+                            {
+                                sort_order = @ViewBag.CurrentSortOrder,
+                                prev_sort_category = @ViewBag.CurrentSortCategory,
+                                cur_sort_category = SortKey.SCHOOL_NAME,
+                                page = Model.PageNumber,
+                                sort_flag = true
+                            }, null)
+                        }
+                        else
+                        {
+                            @: School Name
+                        }                   
+                    </th>
+                    <th>    
+                        @if (Model != null)
+                        {
+                            @Html.ActionLink("Status", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                            new
+                            {
+                                sort_order = @ViewBag.CurrentSortOrder,
+                                prev_sort_category = @ViewBag.CurrentSortCategory,
+                                cur_sort_category = SortKey.PROJECT_STATUS,
+                                page = Model.PageNumber,
+                                sort_flag = true
+                            }, null)
+                        }
+                        else
+                        {
+                            @: Status
+                        }                                       
+                    </th>
+                    <th>   
+                        @if (Model != null)
+                        {
+                            @Html.ActionLink("Ambassador", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                            new
+                            {
+                                sort_order = @ViewBag.CurrentSortOrder,
+                                prev_sort_category = @ViewBag.CurrentSortCategory,
+                                cur_sort_category = SortKey.SCHOOL_AMBASSADOR,
+                                page = Model.PageNumber,
+                                sort_flag = true
+                            }, null)
+                        }
+                        else
+                        {
+                            @: Ambassador
+                        }                                             
+                    </th>
+                    <th>    
+                        @if (Model != null)
+                        {
+                            @Html.ActionLink("Ambassador Email", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                            new
+                            {
+                                sort_order = @ViewBag.CurrentSortOrder,
+                                prev_sort_category = @ViewBag.CurrentSortCategory,
+                                cur_sort_category = SortKey.EMAIL,
+                                page = Model.PageNumber,
+                                sort_flag = true
+                            }, null)
+                        }
+                        else
+                        {
+                            @: Ambassador Email
+                        }                                         
+                    </th>
+                </tr>
+
+                @if (Model != null && Model.ToList().Count != 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item == null)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink(item.ProjectName, ActionName.AN_VIEW_IDEA, PermissionSpace.PS_ADMIN_HOME, new { id = item.ProjectID }, null)
+                                </td>
+                                <td class="description_column">
+                                    @Html.ActionLink(item.SchoolName, ActionName.AN_VIEW_SCHOOL, PermissionSpace.PS_ADMIN_HOME, new { id = item.SchoolID }, null)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProgressStatus)
+
+                                    @using (Html.BeginForm())
+                                    {
+                                        List<SelectListItem> status_list = new List<SelectListItem>();
+
+                                        //Read in global constant statuses
+                                        var global_proj_status_list = ProjectStatus.GetStatusList();
+
+                                        //Foreach project status, populate selection list
+                                        foreach (string status in global_proj_status_list)
+                                        {
+                                            status_list.Add(
+                                                    new SelectListItem() { Value = status, Text = status }
+                                                );
+                                        }
+
+                                        @Html.DropDownList("new_project_status", status_list)
+
+                                        //Submit additional values upon button click
+                                        @Html.Hidden("assignment_id", item.ProjectAssignID)
+                                        @Html.Hidden("current_project_status", item.ProgressStatus)
+
+                                        <input type="submit" value="Update Status" formaction="AdminUpdateProjectStatus" formmethod="post" />
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @if (item.Email != null)
+                                    {
+                                        @Html.ActionLink(item.Email, ActionName.AN_CONSTRUCT_EMAIL, PermissionSpace.PS_ADMIN_HOME, new { user_email = item.Email }, null)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                else if (Model == null)
+                {
+                    //No ideas have been submitted yet
+                    <tr>
+                        <td>There are no assignments yet. </td>
+                    </tr>
+                }
+                else if (Model.ToList().Count == 0)
+                {
+                    //No ideas have been submitted yet
+                    <tr>
+                        <td>There are no assignments yet. </td>
+                    </tr>
+                }                
+
+            </table>
+
+            @if (ViewBag.CurrentSortCategory == ViewBag.PreviousSortCategory)
+            {
+                ViewBag.temp = ViewBag.CurrentSortCategory;
+
+                //Toggle sort order
+                if (ViewBag.CurrentSortOrder == SortKey.ASCEND)
+                {
+                    ViewBag.tempSortOrder = SortKey.DESCEND;
+                }
+                else
+                {
+                    ViewBag.tempSortOrder = SortKey.ASCEND;
+                }
+            }
+            else
+            {
+                ViewBag.temp = ViewBag.PreviousSortCategory;
+            }
+
+            @if (Model != null)
+            {
+                <br />
+                @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action(ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME,
+                        new
+                        {
+                            page,
+                            sort_order = @ViewBag.tempSortOrder,
+                            prev_sort_category = @ViewBag.temp,
+                            cur_sort_category = @ViewBag.CurrentSortCategory,
+                            sort_flag = true
+                        }, null),
+                        new PagedListRenderOptions { DisplayLinkToIndividualPages = true })
+            }            
+
+        </div>
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

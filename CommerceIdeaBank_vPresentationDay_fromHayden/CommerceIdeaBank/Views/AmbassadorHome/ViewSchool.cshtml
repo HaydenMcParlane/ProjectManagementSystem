@@ -1,0 +1,65 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Ambassador.AmbassSchoolViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "School Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.AMBASSADOR)
+    {
+
+        <h2 class="header">School details.</h2>
+
+        <div>
+            <h4 class="header">@Html.DisplayFor(model => model.SchoolName)</h4>
+            <hr />
+
+            <table class="view_table">
+                <tr>
+                    <td>Email: </td>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>Phone: </td>
+                    <td>@Html.DisplayFor(model => model.Phone)</td>
+                </tr>
+                <tr>
+                    <td>Address: </td>
+                    <td>@Html.DisplayFor(model => model.StreetNumber) @Html.DisplayFor(model => model.StreetName)</td>
+                </tr>
+                <tr>
+                    <td>City, State, Zip Code: </td>
+                    <td>@Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.ZipCode)</td>
+                </tr>
+            </table>
+        </div>
+    
+        <div>
+            @if (Request.IsAuthenticated)
+            {
+                <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_AMBASSADOR_HOME)'" />
+            }
+        </div>
+            
+    }
+    else if (role == UserRole.ADMIN)
+    {
+        //Redirect erroneous admin to correct page
+        Response.Redirect(Url.Action(ActionName.AN_VIEW_SCHOOL, PermissionSpace.PS_ADMIN_HOME, new { id = @Model.SchoolID }));
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_AMBASSADOR_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

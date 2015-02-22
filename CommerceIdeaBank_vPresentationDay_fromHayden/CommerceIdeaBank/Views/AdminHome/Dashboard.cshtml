@@ -1,0 +1,50 @@
+﻿<!-- Include necessary view model here *** -->
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h2 class="header">General</h2>
+
+        <div>
+            <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_ADMIN_HOME)'" />            
+        </div>
+        <hr />
+
+        <h2 class="header">@Html.Encode(User.Identity.Name)</h2>
+
+        <div>
+            <input type="button" class="button" value="My Ideas" onclick="location.href='@Url.Action(ActionName.AN_MY_CONTRIBUTION, PermissionSpace.PS_ADMIN_HOME)'" />
+            <input type="button" class="button" value="Active Projects" onclick="location.href='@Url.Action(ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME)'" />
+        </div>
+        <hr />
+    
+        <h2 class="header">Admin Privileges</h2>
+        
+        <div>
+            <input type="button" class="button" value="Archived Ideas" onclick="location.href='@Url.Action(ActionName.AN_VIEW_ARCHIVED_IDEAS, PermissionSpace.PS_ADMIN_HOME)'" />
+            <input type="button" class="button" value="Create School" onclick="location.href='@Url.Action(ActionName.AN_CREATE_SCHOOL, PermissionSpace.PS_ADMIN_HOME)'" />
+            <input type="button" class="button" value="Users" onclick="location.href='@Url.Action(ActionName.AN_VIEW_ALL_USERS, PermissionSpace.PS_ADMIN_HOME)'" />
+            <input type="button" class="button" value="Schools" onclick="location.href='@Url.Action(ActionName.AN_VIEW_ALL_SCHOOLS, PermissionSpace.PS_ADMIN_HOME)'" />
+        </div>
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CommerceIdeaBank.Models.ViewModels.Admin.AdminSchoolViewModel>
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Select School";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+    <h1 class="header">Select the school to which the project will be assigned</h1>
+    <hr />
+
+    <div>                         
+        
+        @using (Html.BeginForm(ActionName.AN_FINALIZE_ASSIGNMENT, PermissionSpace.PS_ADMIN_HOME, 
+            FormMethod.Post, new { name="drop_down_finalize_assignment" }))
+        {
+            List<SelectListItem> selection_list = new List<SelectListItem>();
+                         
+            
+            //Convert vm enum for selection list
+            foreach (var item in Model)
+            {
+                selection_list.Add(
+                    new SelectListItem { Value = item.SchoolID.ToString(), Text = item.SchoolName }
+                    );
+            }
+            
+            @Html.DropDownListFor(x => Model.ElementAt(0).SchoolID, selection_list,
+            null, new { id = "school_selection_drop_down_list"})                                        
+                               
+            <input type="submit" value="Assign" class="button"/>
+            
+        }        
+              
+    </div>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

@@ -1,0 +1,36 @@
+﻿@model CommerceIdeaBank.Models.ProjectViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Idea Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="header">Project Details</h1>
+<h2>@Html.DisplayFor(model => model.ProjectName)</h2>
+<hr />
+
+<div>
+    <table class="view_table">
+        <tr>
+            <td>Username: </td>
+            <td>@Html.DisplayFor(model => model.Username)</td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td>@Html.DisplayFor(model => model.ProjectDesc)</td>
+        </tr>
+        <tr>
+            <td>Justification: </td>
+            <td>@Html.DisplayFor(model => model.BusinessJustification)</td>
+        </tr>
+        <tr>
+            <td>Post Date: </td>
+            <td>@Html.DisplayFor(model => model.PostDate)</td>
+        </tr>
+    </table>
+</div>
+
+<div>            
+    <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME)'" />
+</div>

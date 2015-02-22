@@ -1,0 +1,140 @@
+﻿<!-- Include necessary view model here *** -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Attach to CSS file styling main menu -->
+    <link href="@Url.Content("~/Content/Styles.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div class="nav_banner nav_banner_text">
+
+        <img src="~/Content/images/commerceGlobe.png" class="nav_banner_img" />
+
+        <div class="nav_banner_logo">
+            <!-- Page Title (Commerce IdeaBank) -->
+            Commerce IdeaBank
+        </div>
+
+        @if (Request.IsAuthenticated)
+        {
+            <div class="welcome_text">
+                Hello, @Html.Encode(User.Identity.Name)!
+            </div>
+        }
+
+        <div class="nav_banner_menu">
+            
+            @if (Request.IsAuthenticated)
+            {
+                int role = (int)HttpContext.Current.Session["userRole"];
+                
+                
+                if (role == 1)
+                {
+                    <table class="banner_table">
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Home", "Index", "ContributorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Dashboard", "Dashboard", "ContributorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Submit Idea", "ContributeIdea", "ContributorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Logout", "Logout", "Account")
+                            </td>
+                        </tr>
+                    </table>
+                }
+                
+                if (role == 3)
+                {
+                    <table class="banner_table">
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Home", "Index", "AmbassadorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Dashboard", "Dashboard", "AmbassadorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Submit Idea", "ContributeIdea", "AmbassadorHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Logout", "Logout", "Account")
+                            </td>
+                        </tr>
+                    </table>
+                }
+                
+                if (role == 4)
+                {
+                    <table class="banner_table">
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Home", "Index", "AdminHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Dashboard", "Dashboard", "AdminHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Submit Idea", "ContributeIdea", "AdminHome")
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Logout", "Logout", "Account")
+                            </td>
+                        </tr>
+                    </table>
+                }
+            }
+
+            else
+            {
+                <table class="banner_table">
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Home", "Index", "Home")
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("About", "Index", "Home")
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Register", "Registration", "Account")
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Login", "Login", "Account")
+                        </td>
+                    </tr>
+                </table>
+            }
+            
+        </div>
+    </div>
+
+    <div class="frame">
+        <div class="view">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>

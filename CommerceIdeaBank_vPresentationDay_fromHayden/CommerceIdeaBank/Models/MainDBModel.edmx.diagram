@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1dde7ee9718a45229b65eef0588f6b82" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="MainDBModel.Notification" Width="1.5" PointX="4.125" PointY="5" />
+        <EntityTypeShape EntityType="MainDBModel.ProjectEdit" Width="1.5" PointX="4.75" PointY="2.125" />
+        <EntityTypeShape EntityType="MainDBModel.ProjectAssignment" Width="1.5" PointX="2.375" PointY="0.5" />
+        <EntityTypeShape EntityType="MainDBModel.User" Width="1.5" PointX="7" PointY="2.125" />
+        <AssociationConnector Association="MainDBModel.FK__Notificat__Usern__0880433F" />
+        <AssociationConnector Association="MainDBModel.FK__ProjectEd__Usern__7AF13DF7" />
+        <EntityTypeShape EntityType="MainDBModel.AssignmentMetaData" Width="1.5" PointX="5" PointY="11.125" />
+        <EntityTypeShape EntityType="MainDBModel.AssignmentNote" Width="1.5" PointX="12.625" PointY="0.75" />
+        <EntityTypeShape EntityType="MainDBModel.IdeaMetaData" Width="1.5" PointX="3.25" PointY="15.25" />
+        <EntityTypeShape EntityType="MainDBModel.SchoolMetaData" Width="1.5" PointX="12.125" PointY="4.375" />
+        <EntityTypeShape EntityType="MainDBModel.UserMetaData" Width="1.5" PointX="9.625" PointY="9" />
+        <AssociationConnector Association="MainDBModel.FK_AssignmentMetaData_To_ProjectAssignments" />
+        <AssociationConnector Association="MainDBModel.FK_AssignmentNote_To_ProjectAssignments" />
+        <AssociationConnector Association="MainDBModel.FK_AssignmentNote_To_Users" />
+        <AssociationConnector Association="MainDBModel.FK_UserMetaData_To_Users" />
+        <EntityTypeShape EntityType="MainDBModel.AssignmentFile" Width="1.5" PointX="12.5" PointY="8.375" />
+        <EntityTypeShape EntityType="MainDBModel.File" Width="1.5" PointX="9.25" PointY="12.75" />
+        <EntityTypeShape EntityType="MainDBModel.IdeaFile" Width="1.5" PointX="12.5" PointY="11.25" />
+        <AssociationConnector Association="MainDBModel.FK_AssignmentFile_To_File" />
+        <AssociationConnector Association="MainDBModel.FK_AssignmentFile_To_ProjectAssignments" />
+        <AssociationConnector Association="MainDBModel.FK_File_To_Users_Username" />
+        <AssociationConnector Association="MainDBModel.FK_IdeaFile_To_File" />
+        <EntityTypeShape EntityType="MainDBModel.SchoolEdit" Width="1.5" PointX="11.75" PointY="14" />
+        <EntityTypeShape EntityType="MainDBModel.Project" Width="1.5" PointX="9.25" PointY="2.625" />
+        <EntityTypeShape EntityType="MainDBModel.SavedProject" Width="1.5" PointX="14.5" PointY="4.375" />
+        <EntityTypeShape EntityType="MainDBModel.School" Width="1.5" PointX="9.25" PointY="17.25" />
+        <AssociationConnector Association="MainDBModel.FK_IdeaFile_To_Projects" />
+        <AssociationConnector Association="MainDBModel.FK_IdeaMetaData_To_Projects" />
+        <AssociationConnector Association="MainDBModel.FK__Notificat__Proje__078C1F06" />
+        <AssociationConnector Association="MainDBModel.FK_Assigned_to_Project" />
+        <AssociationConnector Association="MainDBModel.FK_Assigned_to_Schools" />
+        <AssociationConnector Association="MainDBModel.FK__ProjectEd__Proje__79FD19BE" />
+        <AssociationConnector Association="MainDBModel.FK__SavedProj__Proje__7BE56230" />
+        <AssociationConnector Association="MainDBModel.FK_Username" />
+        <AssociationConnector Association="MainDBModel.FK_SavedProjects_to_Users" />
+        <AssociationConnector Association="MainDBModel.FK_SchoolEdits_To_Schools" />
+        <AssociationConnector Association="MainDBModel.FK_SchoolMetaData_To_Schools" />
+        <AssociationConnector Association="MainDBModel.FK__Schools__Usernam__62AFA012" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

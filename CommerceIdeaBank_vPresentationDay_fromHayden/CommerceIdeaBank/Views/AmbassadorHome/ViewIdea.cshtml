@@ -1,0 +1,71 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Ambassador.AmbassProjectViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Idea Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.AMBASSADOR)
+    {
+
+        <h1 class="header">Project details.</h1>
+        <h2>@Html.DisplayFor(model => model.ProjectName)</h2>
+        <hr />
+
+        <div>
+            <table class="view_table">
+                <tr>
+                    <td>Username: </td>
+                    <td>@Html.DisplayFor(model => model.Username)</td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td>@Html.DisplayFor(model => model.ProjectDesc)</td>
+                </tr>
+                <tr>
+                    <td>Justification: </td>
+                    <td>@Html.DisplayFor(model => model.BusinessJustification)</td>
+                </tr>
+                <tr>
+                    <td>Post Date: </td>
+                    <td>@Html.DisplayFor(model => model.PostDate)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            @if (Request.IsAuthenticated)
+            {
+                string username = (string)HttpContext.Current.Session["currentUser"];
+
+                if (username == @Html.Encode(Model.Username))
+                {
+                    <input type="button" class="button" value="Edit Idea" onclick="location.href='@Url.Action(ActionName.AN_EDIT_IDEA, PermissionSpace.PS_AMBASSADOR_HOME, new { id = Model.ProjectID })'" />
+                }
+
+                <input type="button" class="button" value="Back To List" onclick="location.href='@Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_AMBASSADOR_HOME)'" />
+            }
+        </div>
+
+    }
+    else if (role == UserRole.ADMIN)
+    {
+        //Redirect erroneous admin to correct page
+        Response.Redirect(Url.Action(ActionName.AN_VIEW_IDEA, PermissionSpace.PS_ADMIN_HOME, new { id = @Model.ProjectID }));
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_AMBASSADOR_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

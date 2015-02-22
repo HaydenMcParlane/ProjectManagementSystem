@@ -1,0 +1,142 @@
+﻿@model PagedList.IPagedList<CommerceIdeaBank.Models.ViewModels.Admin.AdminProjectViewModel>
+@using CommerceIdeaBank.GlobalConstants
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Archived Ideas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="header">Archived ideas.</h1>
+
+<div class="data_view">
+    <table class="contribution_table">
+        <tr>
+            <th>          
+                @if (Model != null)
+                {
+                    @Html.ActionLink("Project Name", ActionName.AN_VIEW_ARCHIVED_IDEAS, PermissionSpace.PS_ADMIN_HOME,
+                    new
+                    {
+                        sort_order = @ViewBag.CurrentSortOrder,
+                        prev_sort_category = @ViewBag.CurrentSortCategory,
+                        cur_sort_category = SortKey.PROJECT_NAME,
+                        page = Model.PageNumber,
+                        sort_flag = true
+                    }, null)
+                }
+                else
+                {
+                    @: Project Name
+                }                   
+            </th>
+            <th>  
+                @if (Model != null)
+                {
+                    @Html.ActionLink("Username", ActionName.AN_VIEW_ARCHIVED_IDEAS, PermissionSpace.PS_ADMIN_HOME,
+                    new
+                    {
+                        sort_order = @ViewBag.CurrentSortOrder,
+                        prev_sort_category = @ViewBag.CurrentSortCategory,
+                        cur_sort_category = SortKey.PROJECT_USERNAME,
+                        page = Model.PageNumber,
+                        sort_flag = true
+                    }, null)
+                }
+                else
+                {
+                    @: Username
+                }                           
+            </th>
+            <th>    
+                @if (Model != null)
+                {
+                    @Html.ActionLink("Post Date", ActionName.AN_VIEW_ARCHIVED_IDEAS, PermissionSpace.PS_ADMIN_HOME,
+                    new
+                    {
+                        sort_order = @ViewBag.CurrentSortOrder,
+                        prev_sort_category = @ViewBag.CurrentSortCategory,
+                        cur_sort_category = SortKey.PROJECT_POST_DATE,
+                        page = Model.PageNumber,
+                        sort_flag = true
+                    }, null)
+                }
+                else
+                {
+                    @: Post Date
+                }                         
+            </th>
+        </tr>
+
+        @if (Model != null && Model.ToList().Count != 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.ProjectName, ActionName.AN_VIEW_IDEA, PermissionSpace.PS_ADMIN_HOME, new { id = item.ProjectID }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostDate)
+                    </td>
+                </tr>
+            }
+        }
+        else if (Model == null)
+        {
+            //No ideas have been submitted yet
+            <tr>
+                <td> No ideas have been archived yet. </td>
+            </tr>
+        }
+        else if (Model.ToList().Count == 0)
+        {
+            //No ideas have been submitted yet
+            <tr>
+                <td> No ideas have been archived yet. </td>
+            </tr>
+        }     
+
+    </table>
+
+    @if (ViewBag.CurrentSortCategory == ViewBag.PreviousSortCategory)
+    {
+        ViewBag.temp = ViewBag.CurrentSortCategory;
+
+        //Toggle sort order
+        if (ViewBag.CurrentSortOrder == SortKey.ASCEND)
+        {
+            ViewBag.tempSortOrder = SortKey.DESCEND;
+        }
+        else
+        {
+            ViewBag.tempSortOrder = SortKey.ASCEND;
+        }
+    }
+    else
+    {
+        ViewBag.temp = ViewBag.PreviousSortCategory;
+    }
+
+     @if (Model != null)
+     {
+        <br />
+        @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action(ActionName.AN_VIEW_ARCHIVED_IDEAS, PermissionSpace.PS_ADMIN_HOME,
+                        new
+                        {
+                            page,
+                            sort_order = @ViewBag.tempSortOrder,
+                            prev_sort_category = @ViewBag.temp,
+                            cur_sort_category = @ViewBag.CurrentSortCategory,
+                            sort_flag = true
+                        }, null),
+                        new PagedListRenderOptions { DisplayLinkToIndividualPages = true })
+     }    
+
+</div>

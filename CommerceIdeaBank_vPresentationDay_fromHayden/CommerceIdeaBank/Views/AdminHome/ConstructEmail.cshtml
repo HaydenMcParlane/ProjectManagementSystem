@@ -1,0 +1,84 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Admin.AdminEmailViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Construct Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h2 class="animated fadeInLeft delay03">Construct an email.</h2>
+
+        
+        string username = (string)HttpContext.Current.Session["currentUser"];
+        string sender_email = (string)HttpContext.Current.Session["userEmail"];
+        
+
+        using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, 
+            "Failed to construct email. Please check your entries below and verify that they're correct. ");    
+    
+            <div>
+                <fieldset>            
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.SendTo)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.SendTo, null, 
+                        new { @class = "project_name_text", @defaultValue = Model.SendTo })
+                        @Html.ValidationMessageFor(x => x.SendTo)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.Subject)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.Subject, null,
+                 new { @class = "project_name_text" } )
+                        @Html.ValidationMessageFor(x => x.Subject)
+                    </div>
+            
+                    <div class="editor-label">
+                        Body:
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(x => x.EmailBody, new { @class = "project_desc_just_text" })
+                        @Html.ValidationMessageFor(x => x.EmailBody)
+                    </div>       
+
+                    <div>                            
+                    @Html.HiddenFor(model => model.CCTo, new { @Value = Model.CCTo })
+                    @Html.HiddenFor(model => model.SentFrom, new { @Value = @sender_email })
+                    @Html.HiddenFor(model => model.FilesToAttach, new { @Value = Model.FilesToAttach })
+                    @Html.HiddenFor(model => model.Priority, new { @Value = System.Net.Mail.MailPriority.Low })     
+                    </div> 
+
+                    <input type="submit" value="Send Email" class="submit_button" formaction="CreateEmail" />                                         
+                        
+                </fieldset>
+            </div>
+        }
+
+        <div class="back_to_list">
+            @Html.ActionLink("Back to List", ActionName.AN_VIEW_ACTIVE_PROJECTS, PermissionSpace.PS_ADMIN_HOME)
+        </div>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

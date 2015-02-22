@@ -1,0 +1,654 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MainDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MainDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Notifications" EntityType="MainDBModel.Notification" />
+    <EntitySet Name="ProjectEdits" EntityType="MainDBModel.ProjectEdit" />
+    <EntitySet Name="ProjectAssignments" EntityType="MainDBModel.ProjectAssignment" />
+    <EntitySet Name="Users" EntityType="MainDBModel.User" />
+    <AssociationSet Name="FK__Notificat__Usern__0880433F" Association="MainDBModel.FK__Notificat__Usern__0880433F">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectEd__Usern__7AF13DF7" Association="MainDBModel.FK__ProjectEd__Usern__7AF13DF7">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ProjectEdit" EntitySet="ProjectEdits" />
+    </AssociationSet>
+    <EntitySet Name="AssignmentMetaDatas" EntityType="MainDBModel.AssignmentMetaData" />
+    <EntitySet Name="AssignmentNotes" EntityType="MainDBModel.AssignmentNote" />
+    <EntitySet Name="IdeaMetaDatas" EntityType="MainDBModel.IdeaMetaData" />
+    <EntitySet Name="SchoolMetaDatas" EntityType="MainDBModel.SchoolMetaData" />
+    <EntitySet Name="UserMetaDatas" EntityType="MainDBModel.UserMetaData" />
+    <AssociationSet Name="FK_AssignmentMetaData_To_ProjectAssignments" Association="MainDBModel.FK_AssignmentMetaData_To_ProjectAssignments">
+      <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+      <End Role="AssignmentMetaData" EntitySet="AssignmentMetaDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignmentNote_To_ProjectAssignments" Association="MainDBModel.FK_AssignmentNote_To_ProjectAssignments">
+      <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+      <End Role="AssignmentNote" EntitySet="AssignmentNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignmentNote_To_Users" Association="MainDBModel.FK_AssignmentNote_To_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="AssignmentNote" EntitySet="AssignmentNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMetaData_To_Users" Association="MainDBModel.FK_UserMetaData_To_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserMetaData" EntitySet="UserMetaDatas" />
+    </AssociationSet>
+    <EntitySet Name="AssignmentFiles" EntityType="MainDBModel.AssignmentFile" />
+    <EntitySet Name="Files" EntityType="MainDBModel.File" />
+    <EntitySet Name="IdeaFiles" EntityType="MainDBModel.IdeaFile" />
+    <AssociationSet Name="FK_AssignmentFile_To_File" Association="MainDBModel.FK_AssignmentFile_To_File">
+      <End Role="File" EntitySet="Files" />
+      <End Role="AssignmentFile" EntitySet="AssignmentFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignmentFile_To_ProjectAssignments" Association="MainDBModel.FK_AssignmentFile_To_ProjectAssignments">
+      <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+      <End Role="AssignmentFile" EntitySet="AssignmentFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_File_To_Users_Username" Association="MainDBModel.FK_File_To_Users_Username">
+      <End Role="User" EntitySet="Users" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdeaFile_To_File" Association="MainDBModel.FK_IdeaFile_To_File">
+      <End Role="File" EntitySet="Files" />
+      <End Role="IdeaFile" EntitySet="IdeaFiles" />
+    </AssociationSet>
+    <EntitySet Name="SchoolEdits" EntityType="MainDBModel.SchoolEdit" />
+    <EntitySet Name="Projects" EntityType="MainDBModel.Project" />
+    <EntitySet Name="SavedProjects" EntityType="MainDBModel.SavedProject" />
+    <EntitySet Name="Schools" EntityType="MainDBModel.School" />
+    <AssociationSet Name="FK_IdeaFile_To_Projects" Association="MainDBModel.FK_IdeaFile_To_Projects">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="IdeaFile" EntitySet="IdeaFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdeaMetaData_To_Projects" Association="MainDBModel.FK_IdeaMetaData_To_Projects">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="IdeaMetaData" EntitySet="IdeaMetaDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__Proje__078C1F06" Association="MainDBModel.FK__Notificat__Proje__078C1F06">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assigned_to_Project" Association="MainDBModel.FK_Assigned_to_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assigned_to_Schools" Association="MainDBModel.FK_Assigned_to_Schools">
+      <End Role="School" EntitySet="Schools" />
+      <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectEd__Proje__79FD19BE" Association="MainDBModel.FK__ProjectEd__Proje__79FD19BE">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="ProjectEdit" EntitySet="ProjectEdits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SavedProj__Proje__7BE56230" Association="MainDBModel.FK__SavedProj__Proje__7BE56230">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="SavedProject" EntitySet="SavedProjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Username" Association="MainDBModel.FK_Username">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SavedProjects_to_Users" Association="MainDBModel.FK_SavedProjects_to_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SavedProject" EntitySet="SavedProjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchoolEdits_To_Schools" Association="MainDBModel.FK_SchoolEdits_To_Schools">
+      <End Role="School" EntitySet="Schools" />
+      <End Role="SchoolEdit" EntitySet="SchoolEdits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchoolMetaData_To_Schools" Association="MainDBModel.FK_SchoolMetaData_To_Schools">
+      <End Role="School" EntitySet="Schools" />
+      <End Role="SchoolMetaData" EntitySet="SchoolMetaDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schools__Usernam__62AFA012" Association="MainDBModel.FK__Schools__Usernam__62AFA012">
+      <End Role="User" EntitySet="Users" />
+      <End Role="School" EntitySet="Schools" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectID" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK__Notificat__Usern__0880433F" FromRole="Notification" ToRole="User" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK__Notificat__Proje__078C1F06" FromRole="Notification" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="ProjectEdit">
+    <Key>
+      <PropertyRef Name="EditID" />
+    </Key>
+    <Property Name="EditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK__ProjectEd__Usern__7AF13DF7" FromRole="ProjectEdit" ToRole="User" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK__ProjectEd__Proje__79FD19BE" FromRole="ProjectEdit" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="ProjectAssignment">
+    <Key>
+      <PropertyRef Name="ProjectAssignID" />
+    </Key>
+    <Property Name="ProjectAssignID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="SchoolID" Type="Int32" Nullable="false" />
+    <Property Name="AmbassadorNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="MentorNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="HoursDedicatedToProject" Type="Int32" />
+    <Property Name="ProgressStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AssignmentMetaDatas" Relationship="MainDBModel.FK_AssignmentMetaData_To_ProjectAssignments" FromRole="ProjectAssignment" ToRole="AssignmentMetaData" />
+    <NavigationProperty Name="AssignmentNotes" Relationship="MainDBModel.FK_AssignmentNote_To_ProjectAssignments" FromRole="ProjectAssignment" ToRole="AssignmentNote" />
+    <NavigationProperty Name="AssignmentFiles" Relationship="MainDBModel.FK_AssignmentFile_To_ProjectAssignments" FromRole="ProjectAssignment" ToRole="AssignmentFile" />
+    <Property Name="DateAssigned" Type="DateTime" Precision="3" />
+    <Property Name="DateInProgress" Type="DateTime" Precision="3" />
+    <Property Name="DateInterned" Type="DateTime" Precision="3" />
+    <Property Name="DateProduction" Type="DateTime" Precision="3" />
+    <Property Name="DateArchived" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK_Assigned_to_Project" FromRole="ProjectAssignment" ToRole="Project" />
+    <NavigationProperty Name="School" Relationship="MainDBModel.FK_Assigned_to_Schools" FromRole="ProjectAssignment" ToRole="School" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UserRole" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Notifications" Relationship="MainDBModel.FK__Notificat__Usern__0880433F" FromRole="User" ToRole="Notification" />
+    <NavigationProperty Name="ProjectEdits" Relationship="MainDBModel.FK__ProjectEd__Usern__7AF13DF7" FromRole="User" ToRole="ProjectEdit" />
+    <NavigationProperty Name="AssignmentNotes" Relationship="MainDBModel.FK_AssignmentNote_To_Users" FromRole="User" ToRole="AssignmentNote" />
+    <NavigationProperty Name="UserMetaDatas" Relationship="MainDBModel.FK_UserMetaData_To_Users" FromRole="User" ToRole="UserMetaData" />
+    <NavigationProperty Name="Files" Relationship="MainDBModel.FK_File_To_Users_Username" FromRole="User" ToRole="File" />
+    <NavigationProperty Name="Projects" Relationship="MainDBModel.FK_Username" FromRole="User" ToRole="Project" />
+    <NavigationProperty Name="SavedProjects" Relationship="MainDBModel.FK_SavedProjects_to_Users" FromRole="User" ToRole="SavedProject" />
+    <NavigationProperty Name="Schools" Relationship="MainDBModel.FK__Schools__Usernam__62AFA012" FromRole="User" ToRole="School" />
+  </EntityType>
+  <Association Name="FK__Notificat__Usern__0880433F">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectEd__Usern__7AF13DF7">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="MainDBModel.ProjectEdit" Role="ProjectEdit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="ProjectEdit">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AssignmentMetaData">
+    <Key>
+      <PropertyRef Name="AssignMetaDataID" />
+    </Key>
+    <Property Name="AssignMetaDataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectAssignID" Type="Int32" Nullable="false" />
+    <Property Name="NumAmbassEmailsSent" Type="Int32" />
+    <Property Name="NumAdminEmailsSent" Type="Int32" />
+    <Property Name="NumAssociatedFiles" Type="Int32" />
+    <Property Name="NumMeetingsHeldWithSchool" Type="Int32" />
+    <Property Name="ProjectPerformanceRating" Type="Int32" />
+    <Property Name="SchoolPerformanceRating" Type="Int32" />
+    <Property Name="NumPerspectiveInterns" Type="Int32" />
+    <Property Name="NumInternsHired" Type="Int32" />
+    <Property Name="QualityOfCompletedProject" Type="Int32" />
+    <Property Name="StudentPerformanceRating" Type="Int32" />
+    <Property Name="EstDifficultyRating" Type="Int32" />
+    <NavigationProperty Name="ProjectAssignment" Relationship="MainDBModel.FK_AssignmentMetaData_To_ProjectAssignments" FromRole="AssignmentMetaData" ToRole="ProjectAssignment" />
+  </EntityType>
+  <EntityType Name="AssignmentNote">
+    <Key>
+      <PropertyRef Name="AssignNoteID" />
+    </Key>
+    <Property Name="AssignNoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoteCreationDate" Type="DateTime" Precision="0" />
+    <Property Name="ProjectAssignID" Type="Int32" />
+    <Property Name="NoteSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="NoteText" Type="String" MaxLength="3600" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProjectAssignment" Relationship="MainDBModel.FK_AssignmentNote_To_ProjectAssignments" FromRole="AssignmentNote" ToRole="ProjectAssignment" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK_AssignmentNote_To_Users" FromRole="AssignmentNote" ToRole="User" />
+  </EntityType>
+  <EntityType Name="IdeaMetaData">
+    <Key>
+      <PropertyRef Name="IdeaMetaDataId" />
+    </Key>
+    <Property Name="IdeaMetaDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="NumContributorViews" Type="Int32" />
+    <Property Name="NumAmbassadorViews" Type="Int32" />
+    <Property Name="NumAdminViews" Type="Int32" />
+    <Property Name="NumLikes" Type="Int32" />
+    <Property Name="NumEdits" Type="Int32" />
+    <Property Name="NumAssociatedFiles" Type="Int32" />
+    <Property Name="EstEmployeeTimeSavingsInHours" Type="Int32" />
+    <Property Name="NumTimesAssigned" Type="Int32" />
+    <Property Name="IdeaPerformanceRating" Type="Int32" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK_IdeaMetaData_To_Projects" FromRole="IdeaMetaData" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="SchoolMetaData">
+    <Key>
+      <PropertyRef Name="SchoolMetadataID" />
+    </Key>
+    <Property Name="SchoolMetadataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" Nullable="false" />
+    <Property Name="NumCompletedProjects" Type="Int32" />
+    <Property Name="EstProvidedManHours" Type="Int32" />
+    <Property Name="AdminQualityRating" Type="Int32" />
+    <Property Name="AmbassadorQualityRating" Type="Int32" />
+    <Property Name="NumInternsHired" Type="Int32" />
+    <NavigationProperty Name="School" Relationship="MainDBModel.FK_SchoolMetaData_To_Schools" FromRole="SchoolMetaData" ToRole="School" />
+  </EntityType>
+  <EntityType Name="UserMetaData">
+    <Key>
+      <PropertyRef Name="UserMetaDataID" />
+    </Key>
+    <Property Name="UserMetaDataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumContributedIdeas" Type="Int32" />
+    <Property Name="NumVisitedIdeas" Type="Int32" />
+    <Property Name="NumIdeasAssigned" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK_UserMetaData_To_Users" FromRole="UserMetaData" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_AssignmentMetaData_To_ProjectAssignments">
+    <End Type="MainDBModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.AssignmentMetaData" Role="AssignmentMetaData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectAssignment">
+        <PropertyRef Name="ProjectAssignID" />
+      </Principal>
+      <Dependent Role="AssignmentMetaData">
+        <PropertyRef Name="ProjectAssignID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignmentNote_To_ProjectAssignments">
+    <End Type="MainDBModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.AssignmentNote" Role="AssignmentNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectAssignment">
+        <PropertyRef Name="ProjectAssignID" />
+      </Principal>
+      <Dependent Role="AssignmentNote">
+        <PropertyRef Name="ProjectAssignID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignmentNote_To_Users">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="MainDBModel.AssignmentNote" Role="AssignmentNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="AssignmentNote">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserMetaData_To_Users">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.UserMetaData" Role="UserMetaData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="UserMetaData">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AssignmentFile">
+    <Key>
+      <PropertyRef Name="AssignmentFileID" />
+    </Key>
+    <Property Name="AssignmentFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectAssignID" Type="Int32" Nullable="false" />
+    <Property Name="FileID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="File" Relationship="MainDBModel.FK_AssignmentFile_To_File" FromRole="AssignmentFile" ToRole="File" />
+    <NavigationProperty Name="ProjectAssignment" Relationship="MainDBModel.FK_AssignmentFile_To_ProjectAssignments" FromRole="AssignmentFile" ToRole="ProjectAssignment" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="FileID" />
+    </Key>
+    <Property Name="FileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileContent" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="MimeType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AssignmentFiles" Relationship="MainDBModel.FK_AssignmentFile_To_File" FromRole="File" ToRole="AssignmentFile" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK_File_To_Users_Username" FromRole="File" ToRole="User" />
+    <NavigationProperty Name="IdeaFiles" Relationship="MainDBModel.FK_IdeaFile_To_File" FromRole="File" ToRole="IdeaFile" />
+  </EntityType>
+  <EntityType Name="IdeaFile">
+    <Key>
+      <PropertyRef Name="IdeaFileID" />
+    </Key>
+    <Property Name="IdeaFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="FileID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="File" Relationship="MainDBModel.FK_IdeaFile_To_File" FromRole="IdeaFile" ToRole="File" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK_IdeaFile_To_Projects" FromRole="IdeaFile" ToRole="Project" />
+  </EntityType>
+  <Association Name="FK_AssignmentFile_To_File">
+    <End Type="MainDBModel.File" Role="File" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.AssignmentFile" Role="AssignmentFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="FileID" />
+      </Principal>
+      <Dependent Role="AssignmentFile">
+        <PropertyRef Name="FileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignmentFile_To_ProjectAssignments">
+    <End Type="MainDBModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.AssignmentFile" Role="AssignmentFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectAssignment">
+        <PropertyRef Name="ProjectAssignID" />
+      </Principal>
+      <Dependent Role="AssignmentFile">
+        <PropertyRef Name="ProjectAssignID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_File_To_Users_Username">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="MainDBModel.File" Role="File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdeaFile_To_File">
+    <End Type="MainDBModel.File" Role="File" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.IdeaFile" Role="IdeaFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="FileID" />
+      </Principal>
+      <Dependent Role="IdeaFile">
+        <PropertyRef Name="FileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SchoolEdit">
+    <Key>
+      <PropertyRef Name="SchoolEditID" />
+    </Key>
+    <Property Name="SchoolEditID" Type="Int32" Nullable="false" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="SchoolName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContactName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContactPhone" Type="Int32" />
+    <Property Name="ContactEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StreetNumber" Type="Decimal" Precision="10" Scale="0" />
+    <Property Name="StreetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ZipCode" Type="Int32" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="School" Relationship="MainDBModel.FK_SchoolEdits_To_Schools" FromRole="SchoolEdit" ToRole="School" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectDesc" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessJustification" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AssignDate" Type="DateTime" Precision="3" />
+    <Property Name="InternDate" Type="DateTime" Precision="3" />
+    <Property Name="IsArchived" Type="Boolean" />
+    <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ChangeControlNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="IdeaFiles" Relationship="MainDBModel.FK_IdeaFile_To_Projects" FromRole="Project" ToRole="IdeaFile" />
+    <NavigationProperty Name="IdeaMetaDatas" Relationship="MainDBModel.FK_IdeaMetaData_To_Projects" FromRole="Project" ToRole="IdeaMetaData" />
+    <NavigationProperty Name="Notifications" Relationship="MainDBModel.FK__Notificat__Proje__078C1F06" FromRole="Project" ToRole="Notification" />
+    <NavigationProperty Name="ProjectAssignments" Relationship="MainDBModel.FK_Assigned_to_Project" FromRole="Project" ToRole="ProjectAssignment" />
+    <NavigationProperty Name="ProjectEdits" Relationship="MainDBModel.FK__ProjectEd__Proje__79FD19BE" FromRole="Project" ToRole="ProjectEdit" />
+    <NavigationProperty Name="SavedProjects" Relationship="MainDBModel.FK__SavedProj__Proje__7BE56230" FromRole="Project" ToRole="SavedProject" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK_Username" FromRole="Project" ToRole="User" />
+  </EntityType>
+  <EntityType Name="SavedProject">
+    <Key>
+      <PropertyRef Name="SaveID" />
+    </Key>
+    <Property Name="SaveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostDate" Type="DateTime" Precision="3" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectBusinessJustification" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Project" Relationship="MainDBModel.FK__SavedProj__Proje__7BE56230" FromRole="SavedProject" ToRole="Project" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK_SavedProjects_to_Users" FromRole="SavedProject" ToRole="User" />
+  </EntityType>
+  <EntityType Name="School">
+    <Key>
+      <PropertyRef Name="SchoolID" />
+    </Key>
+    <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SchoolName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContactName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContactPhone" Type="Int32" />
+    <Property Name="ContactEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StreetNumber" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+    <Property Name="StreetName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ZipCode" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="ProjectAssignments" Relationship="MainDBModel.FK_Assigned_to_Schools" FromRole="School" ToRole="ProjectAssignment" />
+    <NavigationProperty Name="SchoolEdits" Relationship="MainDBModel.FK_SchoolEdits_To_Schools" FromRole="School" ToRole="SchoolEdit" />
+    <NavigationProperty Name="SchoolMetaDatas" Relationship="MainDBModel.FK_SchoolMetaData_To_Schools" FromRole="School" ToRole="SchoolMetaData" />
+    <NavigationProperty Name="User" Relationship="MainDBModel.FK__Schools__Usernam__62AFA012" FromRole="School" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_IdeaFile_To_Projects">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="1" />
+    <End Type="MainDBModel.IdeaFile" Role="IdeaFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="IdeaFile">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdeaMetaData_To_Projects">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="1" />
+    <End Type="MainDBModel.IdeaMetaData" Role="IdeaMetaData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="IdeaMetaData">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__Proje__078C1F06">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="MainDBModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assigned_to_Project">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="ProjectAssignment">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assigned_to_Schools">
+    <End Type="MainDBModel.School" Role="School" Multiplicity="1" />
+    <End Type="MainDBModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="ProjectAssignment">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectEd__Proje__79FD19BE">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.ProjectEdit" Role="ProjectEdit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="ProjectEdit">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SavedProj__Proje__7BE56230">
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.SavedProject" Role="SavedProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="SavedProject">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Username">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MainDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SavedProjects_to_Users">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MainDBModel.SavedProject" Role="SavedProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="SavedProject">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchoolEdits_To_Schools">
+    <End Type="MainDBModel.School" Role="School" Multiplicity="0..1" />
+    <End Type="MainDBModel.SchoolEdit" Role="SchoolEdit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="SchoolEdit">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchoolMetaData_To_Schools">
+    <End Type="MainDBModel.School" Role="School" Multiplicity="1" />
+    <End Type="MainDBModel.SchoolMetaData" Role="SchoolMetaData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="SchoolMetaData">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schools__Usernam__62AFA012">
+    <End Type="MainDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MainDBModel.School" Role="School" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="School">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

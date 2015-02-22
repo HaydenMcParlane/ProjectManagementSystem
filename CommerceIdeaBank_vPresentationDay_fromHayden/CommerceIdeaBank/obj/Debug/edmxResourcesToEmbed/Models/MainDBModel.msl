@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MainDBModelStoreContainer" CdmEntityContainer="MainDBEntities">
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="MainDBModel.Notification">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectEdits">
+      <EntityTypeMapping TypeName="MainDBModel.ProjectEdit">
+        <MappingFragment StoreEntitySet="ProjectEdits">
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="EditID" ColumnName="EditID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectAssignments">
+      <EntityTypeMapping TypeName="MainDBModel.ProjectAssignment">
+        <MappingFragment StoreEntitySet="ProjectAssignments">
+          <ScalarProperty Name="DateArchived" ColumnName="DateArchived" />
+          <ScalarProperty Name="DateProduction" ColumnName="DateProduction" />
+          <ScalarProperty Name="DateInterned" ColumnName="DateInterned" />
+          <ScalarProperty Name="DateInProgress" ColumnName="DateInProgress" />
+          <ScalarProperty Name="DateAssigned" ColumnName="DateAssigned" />
+          <ScalarProperty Name="ProgressStatus" ColumnName="ProgressStatus" />
+          <ScalarProperty Name="HoursDedicatedToProject" ColumnName="HoursDedicatedToProject" />
+          <ScalarProperty Name="AdminNote" ColumnName="AdminNote" />
+          <ScalarProperty Name="MentorNote" ColumnName="MentorNote" />
+          <ScalarProperty Name="AmbassadorNote" ColumnName="AmbassadorNote" />
+          <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectAssignID" ColumnName="ProjectAssignID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MainDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignmentMetaDatas">
+      <EntityTypeMapping TypeName="MainDBModel.AssignmentMetaData">
+        <MappingFragment StoreEntitySet="AssignmentMetaData">
+          <ScalarProperty Name="EstDifficultyRating" ColumnName="EstDifficultyRating" />
+          <ScalarProperty Name="StudentPerformanceRating" ColumnName="StudentPerformanceRating" />
+          <ScalarProperty Name="QualityOfCompletedProject" ColumnName="QualityOfCompletedProject" />
+          <ScalarProperty Name="NumInternsHired" ColumnName="NumInternsHired" />
+          <ScalarProperty Name="NumPerspectiveInterns" ColumnName="NumPerspectiveInterns" />
+          <ScalarProperty Name="SchoolPerformanceRating" ColumnName="SchoolPerformanceRating" />
+          <ScalarProperty Name="ProjectPerformanceRating" ColumnName="ProjectPerformanceRating" />
+          <ScalarProperty Name="NumMeetingsHeldWithSchool" ColumnName="NumMeetingsHeldWithSchool" />
+          <ScalarProperty Name="NumAssociatedFiles" ColumnName="NumAssociatedFiles" />
+          <ScalarProperty Name="NumAdminEmailsSent" ColumnName="NumAdminEmailsSent" />
+          <ScalarProperty Name="NumAmbassEmailsSent" ColumnName="NumAmbassEmailsSent" />
+          <ScalarProperty Name="ProjectAssignID" ColumnName="ProjectAssignID" />
+          <ScalarProperty Name="AssignMetaDataID" ColumnName="AssignMetaDataID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignmentNotes">
+      <EntityTypeMapping TypeName="MainDBModel.AssignmentNote">
+        <MappingFragment StoreEntitySet="AssignmentNote">
+          <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+          <ScalarProperty Name="NoteSubject" ColumnName="NoteSubject" />
+          <ScalarProperty Name="ProjectAssignID" ColumnName="ProjectAssignID" />
+          <ScalarProperty Name="NoteCreationDate" ColumnName="NoteCreationDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="AssignNoteID" ColumnName="AssignNoteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdeaMetaDatas">
+      <EntityTypeMapping TypeName="MainDBModel.IdeaMetaData">
+        <MappingFragment StoreEntitySet="IdeaMetaData">
+          <ScalarProperty Name="IdeaPerformanceRating" ColumnName="IdeaPerformanceRating" />
+          <ScalarProperty Name="NumTimesAssigned" ColumnName="NumTimesAssigned" />
+          <ScalarProperty Name="EstEmployeeTimeSavingsInHours" ColumnName="EstEmployeeTimeSavingsInHours" />
+          <ScalarProperty Name="NumAssociatedFiles" ColumnName="NumAssociatedFiles" />
+          <ScalarProperty Name="NumEdits" ColumnName="NumEdits" />
+          <ScalarProperty Name="NumLikes" ColumnName="NumLikes" />
+          <ScalarProperty Name="NumAdminViews" ColumnName="NumAdminViews" />
+          <ScalarProperty Name="NumAmbassadorViews" ColumnName="NumAmbassadorViews" />
+          <ScalarProperty Name="NumContributorViews" ColumnName="NumContributorViews" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="IdeaMetaDataId" ColumnName="IdeaMetaDataId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchoolMetaDatas">
+      <EntityTypeMapping TypeName="MainDBModel.SchoolMetaData">
+        <MappingFragment StoreEntitySet="SchoolMetaData">
+          <ScalarProperty Name="NumInternsHired" ColumnName="NumInternsHired" />
+          <ScalarProperty Name="AmbassadorQualityRating" ColumnName="AmbassadorQualityRating" />
+          <ScalarProperty Name="AdminQualityRating" ColumnName="AdminQualityRating" />
+          <ScalarProperty Name="EstProvidedManHours" ColumnName="EstProvidedManHours" />
+          <ScalarProperty Name="NumCompletedProjects" ColumnName="NumCompletedProjects" />
+          <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+          <ScalarProperty Name="SchoolMetadataID" ColumnName="SchoolMetadataID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMetaDatas">
+      <EntityTypeMapping TypeName="MainDBModel.UserMetaData">
+        <MappingFragment StoreEntitySet="UserMetaData">
+          <ScalarProperty Name="NumIdeasAssigned" ColumnName="NumIdeasAssigned" />
+          <ScalarProperty Name="NumVisitedIdeas" ColumnName="NumVisitedIdeas" />
+          <ScalarProperty Name="NumContributedIdeas" ColumnName="NumContributedIdeas" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserMetaDataID" ColumnName="UserMetaDataID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignmentFiles">
+      <EntityTypeMapping TypeName="MainDBModel.AssignmentFile">
+        <MappingFragment StoreEntitySet="AssignmentFile">
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="ProjectAssignID" ColumnName="ProjectAssignID" />
+          <ScalarProperty Name="AssignmentFileID" ColumnName="AssignmentFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="MainDBModel.File">
+        <MappingFragment StoreEntitySet="File">
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdeaFiles">
+      <EntityTypeMapping TypeName="MainDBModel.IdeaFile">
+        <MappingFragment StoreEntitySet="IdeaFile">
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="IdeaFileID" ColumnName="IdeaFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchoolEdits">
+      <EntityTypeMapping TypeName="MainDBModel.SchoolEdit">
+        <MappingFragment StoreEntitySet="SchoolEdits">
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+          <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+          <ScalarProperty Name="SchoolEditID" ColumnName="SchoolEditID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="MainDBModel.Project">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="ChangeControlNumber" ColumnName="ChangeControlNumber" />
+          <ScalarProperty Name="AdminNote" ColumnName="AdminNote" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="InternDate" ColumnName="InternDate" />
+          <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BusinessJustification" ColumnName="BusinessJustification" />
+          <ScalarProperty Name="ProjectDesc" ColumnName="ProjectDesc" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SavedProjects">
+      <EntityTypeMapping TypeName="MainDBModel.SavedProject">
+        <MappingFragment StoreEntitySet="SavedProjects">
+          <ScalarProperty Name="ProjectBusinessJustification" ColumnName="ProjectBusinessJustification" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="SaveID" ColumnName="SaveID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schools">
+      <EntityTypeMapping TypeName="MainDBModel.School">
+        <MappingFragment StoreEntitySet="Schools">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+          <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

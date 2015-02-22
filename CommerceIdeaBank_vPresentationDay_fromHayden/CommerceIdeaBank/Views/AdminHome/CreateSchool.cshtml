@@ -1,0 +1,108 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Admin.AdminSchoolViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Create School";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h1 class="header">Create School</h1>
+
+        using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Failed to Create School. Check all fields.");
+            <div>
+                <fieldset>
+                    <legend>Create New School</legend>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.SchoolName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.SchoolName, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.SchoolName)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.Phone)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.Phone, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.Phone)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.StreetNumber)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.StreetNumber, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.StreetNumber)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.StreetName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.StreetName, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.StreetName)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.City)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.City, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.City)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.State)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.State, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.State)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.ZipCode)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.ZipCode, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.ZipCode)
+                    </div>
+   
+                    <div class="editor-label">
+                        @Html.LabelFor(x => x.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(x => x.Email, new { @class = "input_textbox" })
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Add School" class="submit_button button" />
+                    </div>
+
+                </fieldset>
+            </div>
+        }
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}

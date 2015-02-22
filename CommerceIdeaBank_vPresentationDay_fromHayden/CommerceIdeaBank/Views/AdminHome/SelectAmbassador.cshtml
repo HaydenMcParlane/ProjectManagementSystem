@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CommerceIdeaBank.Models.ViewModels.Admin.AdminUserViewModel>
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Select Ambassador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h1 class="header">Select the ambassador to associate with the selected school</h1>
+        <hr />
+
+        <div>
+
+            @using (Html.BeginForm())
+            {
+                List<SelectListItem> selection_list = new List<SelectListItem>();
+
+                //Convert vm enum for selection list
+                foreach (var ambassador in Model)
+                {
+                    selection_list.Add(
+                        new SelectListItem { Value = ambassador.Username, Text = ambassador.Email }
+                        );
+                }
+
+                @Html.DropDownList("new_ambassador_username", selection_list)
+
+            <input type="submit" value="Assign" class="button" formaction="AdminAddAmbassadorToSchool" formmethod="post" />
+            }
+
+        </div>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action("PermissionsInvalid", "Home"));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action("Index", "Home"));
+}

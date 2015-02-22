@@ -1,0 +1,63 @@
+﻿@model CommerceIdeaBank.Models.ViewModels.Admin.AdminProjectViewModel
+@using CommerceIdeaBank.GlobalConstants
+
+@{
+    ViewBag.Title = "Delete Idea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    int role = (int)HttpContext.Current.Session["userRole"];
+
+    if (role == UserRole.ADMIN)
+    {
+
+        <h1 class="header">Delete Idea</h1>
+
+        <div>
+            <h2>@Html.DisplayFor(model => model.ProjectName)</h2>
+            <hr />
+
+            <table class="view_table">
+                <tr>
+                    <td>Username: </td>
+                    <td>@Html.DisplayFor(model => model.Username)</td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td>@Html.DisplayFor(model => model.ProjectDesc)</td>
+                </tr>
+                <tr>
+                    <td>Justification: </td>
+                    <td>@Html.DisplayFor(model => model.BusinessJustification)</td>
+                </tr>
+                <tr>
+                    <td>Post Date: </td>
+                    <td>@Html.DisplayFor(model => model.PostDate)</td>
+                </tr>
+            </table>
+
+            @using (Html.BeginForm(ActionName.AN_DELETE_IDEA, PermissionSpace.PS_ADMIN_HOME, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", new { @Value = @Model.ProjectID });
+                
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="button" />
+                </div>
+            }
+        </div>
+
+    }
+    else
+    {
+        //Error. Permissions invalid. Log user off and redirect to default home
+        Response.Redirect(Url.Action(ActionName.AN_PERMISSIONS_INVALID, PermissionSpace.PS_DEFAULT_HOME));
+    }
+}
+else
+{
+    //If user not authenticated, route to default home
+    Response.Redirect(Url.Action(ActionName.AN_INDEX, PermissionSpace.PS_DEFAULT_HOME));
+}
