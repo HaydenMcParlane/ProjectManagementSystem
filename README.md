@@ -1,6 +1,7 @@
 # ProjectManagementSystem
 Undergraduate class project. An MVC Application using ASP.NET and Entity Framework. All design decisions were left
-up to the group members to decide and research.
+up to the group members to decide and research. I was solely responsible for the backend (the controller and the model)
+as well as for high-level software architecture and engineering.
 
 To Use the App:
 	1) The username and password are identical.
@@ -9,6 +10,9 @@ crudely enforced). They are... admin, ambassador, contributor.
 
 Project Goal: 
 	Create an application that allows CommerceBank to manage projects that involve university students.
+
+Project Duration:
+	September 10, 2014 - December 8, 2014.
 
 My Background at the Time: 
 	At the time of application development, my experience was limited. I had completed many
